@@ -20,7 +20,7 @@ built-in web server. Start it from this project directory, with:
 
 	php -S 127.0.0.1:8080
 
-And point your browser to http://127.0.0.1/.
+And point your browser to http://127.0.0.1:8080/.
 
 Frontend settings
 -----------------
