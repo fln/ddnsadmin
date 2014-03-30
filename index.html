@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DDNSadmin</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="ddnsadmin.js"></script>
+</head>
+
+<body>
+<div class="container">
+	<h1>DDNSadmin</h1>
+
+	<div class="row">
+	<form id="auth_form" method="post" class="form-horizontal" role="form">
+		<div class="col-sm-8">
+			<h4>Main settings</h6>
+			<div class="form-group">
+				<label for="zone" class="col-sm-2 control-label">DNS zone</label>
+				<div class="col-sm-4">
+					<input class="form-control" id="zone" type="text" name="zone" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="key-name" class="col-sm-2 control-label">Key name</label>
+				<div class="col-sm-4">
+					<input class="form-control" id="key-name" type="text" name="key-name"  />
+				</div>
+				<label for="key-type" class="col-sm-2 control-label">Key type</label>
+				<div class="col-sm-4">
+					<select class="form-control" id="key-type" name="key-type"></select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="key-name" class="col-sm-2 control-label">Key</label>
+				<div class="col-sm-10">
+					<input class="form-control" id="key" type="text" name="key"  />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-4">
+					<button id="reload_button" type="submit" class="btn btn-primary">Load zone</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<h4>Advanced settings</h6>
+			<div class="form-group">
+				<label for="server" class="col-sm-4 control-label">DNS Server</label>
+				<div class="col-sm-8">
+					<input class="form-control" id="server" type="text" name="server"  />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="proxy-path" class="col-sm-4 control-label">Proxy URL</label>
+				<div class="col-sm-8">
+					<input class="form-control" id="proxy-path" type="text" value="dnsproxy.php" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="rr-filter" class="col-sm-4 control-label">RR type filter</label>
+				<div class="col-sm-8">
+					<input class="form-control" id="rr-filter" type="text" value="SOA,RRSIG,NSEC,NSEC3" />
+				</div>
+			</div>
+
+		</div>
+	</form>
+	</div>
+
+	<div id="errors" class="row">
+	</div>
+	
+	<div class="row">
+	<form id="rr-add">
+		<table id="records" class="table table-hover">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>TTL</th>
+				<th>Type</th>
+				<th>Data</th>
+				<th>Action</th>
+			</tr>
+			<tr>
+				<th><input type="text" name="name" class="form-control"></th>
+				<th><input type="text" name="ttl" class="form-control"></th>
+				<th><select name="type" class="form-control"><option> kaka</option></select></th>
+				<th><input type="text" name="data" class="form-control"></th>
+				<th data-name="add-button">
+					<button type="button" class="btn btn-success">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+		</table>
+	</form>
+	</div>
+
+</div>
+</body>
+</html>
