@@ -63,19 +63,21 @@ Backend files:
 * dnsproxy.php
 * Net.phar (file) or Net (directory) for Net\_DNS2 library
 
-	+--------------+         +--------------+      +------------+
-	|              | HTTP/S  |              | DNS  |            |
-	| Web browser  |-------->| PHP backend  |----->| Master     |
-	|              |         |              |      | Nameserver |
-	| index.html   |<--------| dnsproxy.php |<-----|            |
-	| ddnsadmin.js |    ^    | Net.phar     |   ^  |            |
-	+--------------+    |    +--------------+   |  +------------+
-	                    |                       |
-	   JSON request over HTTP (key is send      |
-	   in plaintext here, except for HTTPS)     |
-	                                            |
-	                           Signed DNS request (AXFR or DNS update)
-	                       (key is not sent here, only request signature)
+```
++--------------+         +--------------+      +------------+
+|              | HTTP/S  |              | DNS  |            |
+| Web browser  |-------->| PHP backend  |----->| Master     |
+|              |         |              |      | Nameserver |
+| index.html   |<--------| dnsproxy.php |<-----|            |
+| ddnsadmin.js |    ^    | Net.phar     |   ^  |            |
++--------------+    |    +--------------+   |  +------------+
+                    |                       |
+   JSON request over HTTP (key is send      |
+   in plaintext here, except for HTTPS)     |
+                                            |
+                           Signed DNS request (AXFR or DNS update)
+                       (key is not sent here, only request signature)
+```
 
 In each request frontend passes your zone key to the backend. It is important 
 to use HTTPS or start backend on your local machine using PHP built-in web 
