@@ -140,13 +140,13 @@ using same syntax as in bind configuration.
 
 Perform AXFR:
 
-	dig -k path/to/example.key example.net @127.0.0.1
+	$ dig -k path/to/example.key example.net @127.0.0.1
 
 Replace *127.0.0.1* with your name server IP address.
 
 Perform DDNS update:
 
-	nsupdate -k path/to/example.key
+	$ nsupdate -k path/to/example.key
 	> server 127.0.0.1
 	> zone example.net
 	> update add ddnstest.fln.lt  300 IN A 192.168.0.1
