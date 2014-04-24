@@ -22,6 +22,7 @@ built-in web server. Start it from this project directory, with:
 
 And point your browser to http://127.0.0.1:8080/.
 
+
 Frontend settings
 -----------------
 
@@ -49,6 +50,7 @@ backend on the same web server, same directory. It should be changed if backend
 and frontend are on different web servers.
 * **Filter RRs** - List of resource record types (comma separated) to filter 
 out before displaying zone records.
+
 
 System architecture
 -------------------
@@ -83,6 +85,7 @@ In each request frontend passes your zone key to the backend. It is important
 to use HTTPS or start backend on your local machine using PHP built-in web 
 server to avoid eavesdropping.
 
+
 Net\_DNS2
 ---------
 
@@ -98,16 +101,18 @@ code from upstream and use sources directly or pack your own *Net.phar* archive.
 There is Makefile with library download and packing code. To delete provided 
 *Net.phar* archive and download library sources following commands:
 
-	make clean      // Remove *Net.phar* and library sources
-	make Net        // Download and extract library sources
+	make clean      # Remove Net.phar and library sources
+	make Net        # Download and extract library sources
 
 To build your own *Net.phar* use commands:
 
-	make            // Create *Net.phar*
-	make distclean  // Delete library sources
+	make            # Create Net.phar
+	make distclean  # Delete library sources
+
 
 DNS server configuration examples
 =================================
+
 
 Key generation
 --------------
