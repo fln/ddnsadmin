@@ -87,10 +87,10 @@ Net\_DNS2
 ---------
 
 Backend uses [Net\_DNS2 library](http://pear.php.net/package/Net\_DNS2) for DNS 
-packet crafting. This repository includes Net.phar which is an archive of 
-Net\_DNS2 library files.
+packet crafting. This repository includes **Net.phar** archive of Net\_DNS2 
+library files.
 
-Backed checks for *Net.phar* archive or *Net* directory for library sources.
+Backend checks for *Net.phar* archive or *Net* directory for library sources.
 
 If you do not trust bundled *Net.phar* archive you can easily download library 
 code from upstream and use sources directly or pack your own *Net.phar* archive.
@@ -123,7 +123,9 @@ In the examples below we will use sha512 HMAC algorithm and will name our key
 TSIG key information summary:
 
 > Key name: **uberkey**
+>
 > Key type: **hmac-sha512**
+>
 > Key: **UNhY4JhezH9gQYqvDMWrWH9CwlcKiECVqejMrND2VFw=**
 
 
