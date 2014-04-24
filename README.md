@@ -106,55 +106,42 @@ To build your own *Net.phar* use commands:
 	make            // Create *Net.phar*
 	make distclean  // Delete library sources
 
-DNS server configuration example (Bind 9)
------------------------------------------
+DNS server configuration examples
+=================================
 
-Generate and base64 encoded new (256 bit) key:
+Key generation
+--------------
+
+Generate a new random key (256 bit length) and base64 encode it:
 
 	$ dd if=/dev/urandom bs=32 count=1 2>/dev/null | base64
 	UNhY4JhezH9gQYqvDMWrWH9CwlcKiECVqejMrND2VFw=
 
-Add generated key to bind configuration file:
+In the examples below we will use sha512 HMAC algorithm and will name our key 
+**uberkey**.
 
-	key my-key.example.net. {
+TSIG key information summary:
+
+> Key name: **uberkey**
+> Key type: **hmac-sha512**
+> Key: **UNhY4JhezH9gQYqvDMWrWH9CwlcKiECVqejMrND2VFw=**
+
+
+Bind 9 DNS server
+-----------------
+
+Bind 9 configuration snippet for "example.net" zone:
+
+	key uberkey {
 		algorithm hmac-sha512;
 		secret "UNhY4JhezH9gQYqvDMWrWH9CwlcKiECVqejMrND2VFw=";
 	};
 	zone "example.net" {
 		type master;
 		file "/etc/bind/db.example.net";
-		allow-transfer { key my-key.example.net.; };
-		allow-update { key my-key.example.net.; };
+		allow-transfer { key uberkey; };
+		allow-update { key uberkey; };
 	};
-
-To test your name server configuration you can perform AXFR queries using 
-**dig** tool and DDNS updates using **nsupdate** tool. First create key file 
-using same syntax as in bind configuration.
-
-**example.key**:
-
-	key my-key.example.net. {
-		algorithm hmac-sha512;
-		secret "UNhY4JhezH9gQYqvDMWrWH9CwlcKiECVqejMrND2VFw=";
-	};
-
-Perform AXFR:
-
-	$ dig -k path/to/example.key example.net @127.0.0.1
-
-Replace *127.0.0.1* with your name server IP address.
-
-Perform DDNS update:
-
-	$ nsupdate -k path/to/example.key
-	> server 127.0.0.1
-	> zone example.net
-	> update add ddnstest.fln.lt  300 IN A 192.168.0.1
-	> send
-	> quit
-
-If **nsupdate** do not print any error messages it means DDNS update was 
-performed successfully.
 
 
 PowerDNS server configuration
@@ -165,4 +152,52 @@ Zone transfer (AXFR) with TSIG key is supported since PowerDNS server 3.0.
 
 DDNS updates with TSIG key is supported since PowerDNS server 3.4.
 [Documentation](http://doc.powerdns.com/html/rfc2136.html).
+
+
+Knot DNS server
+---------------
+
+Knot configuration snippet for "example.net" zone:
+
+	keys {
+	  uberkey hmac-sha512 "UNhY4JhezH9gQYqvDMWrWH9CwlcKiECVqejMrND2VFw=";
+	}
+	remotes {
+	  any-with-key {
+	    address 0.0.0.0/0;
+	    key uberkey;
+	  }
+	}
+	zones {
+	  example.net {
+	    file "/etc/knot/example.net.zone";
+	    xfr-out any-with-key;
+	    update-in any-with-key;
+	  }
+	}
+
+
+Configuration testing
+---------------------
+
+To test your name server configuration you can perform AXFR queries using 
+**dig** tool and DDNS updates using **nsupdate** tool.
+
+Perform AXFR using **dig**:
+
+	$ dig -y hmac-sha512:uberkey:UNhY4JhezH9gQYqvDMWrWH9CwlcKiECVqejMrND2VFw= -t axfr example.net @127.0.0.1
+
+Perform DDNS update using **nsupdate**:
+
+	$ nsupdate -y hmac-sha512:uberkey:UNhY4JhezH9gQYqvDMWrWH9CwlcKiECVqejMrND2VFw=
+	> server 127.0.0.1
+	> zone example.net
+	> update add ddnstest.example.net 300 IN A 192.0.2.1
+	> send
+	> quit
+
+If **nsupdate** do not print any error messages it means DDNS update was 
+performed successfully.
+
+In both examples replace *127.0.0.1* with your name server IP address.
 
