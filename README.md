@@ -156,3 +156,13 @@ Perform DDNS update:
 If **nsupdate** do not print any error messages it means DDNS update was 
 performed successfully.
 
+
+PowerDNS server configuration
+-----------------------------
+
+Zone transfer (AXFR) with TSIG key is supported since PowerDNS server 3.0.
+[Documentation](http://doc.powerdns.com/html/tsig.html).
+
+DDNS updates with TSIG key is supported since PowerDNS server 3.4.
+[Documentation](http://doc.powerdns.com/html/rfc2136.html).
+
