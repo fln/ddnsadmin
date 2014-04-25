@@ -184,6 +184,27 @@ Knot configuration snippet for "example.net" zone:
 	}
 
 
+YADIFA DNS server
+-----------------
+
+YADIFA configuration snippet for "example.net" zone:
+
+	<key>
+		name       uberkey
+		algorithm  hmac-md5
+		secret     UNhY4JhezH9gQYqvDMWrWH9CwlcKiECVqejMrND2VFw=
+	</key>
+	<zone>
+		type            master
+		domain          example.net
+		file            example.net.zone
+		allow-transfer  key uberkey
+		allow-update    key uberkey
+	</zone>
+
+**Note!** YADIFA 1.0.3 supports only hmac-md5 TSIG key algorithm!
+
+
 Configuration testing
 ---------------------
 
